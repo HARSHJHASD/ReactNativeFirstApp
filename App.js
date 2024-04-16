@@ -85,7 +85,7 @@ export default function App() {
           </Text>
         </Pressable>
 
-        <Modal visible={isModalVisible}>
+        <Modal presentationStyle="pageSheet" animationType="slide" visible={isModalVisible}>
           <View>
             <Text>Hey modal</Text>
             <Button
