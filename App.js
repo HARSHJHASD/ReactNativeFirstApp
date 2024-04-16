@@ -1,10 +1,21 @@
-import { Button, Image, ScrollView, Text, View, Pressable } from "react-native";
+import { useState } from "react";
+import {
+  Button,
+  Image,
+  ScrollView,
+  Text,
+  View,
+  Pressable,
+  Modal,
+} from "react-native";
 const logoImage = require("./assets/adaptive-icon.png");
 
 export default function App() {
   const handleTextPress = () => {
     console.log("Text onPress");
   };
+
+  const [isModalVisible, setIsmOdalVisible] = useState(false);
 
   const handlePressIn = () => {
     console.log("Pressable onPressIn");
@@ -29,9 +40,11 @@ export default function App() {
       <Image source={logoImage} style={{ width: 300, height: 300 }}></Image>
       <Button
         color="midnightblue"
-        disabled
         title="Press"
-        onPress={() => console.log("Button pressed")}
+        onPress={() => {
+          console.log("Open Modal pressed");
+          setIsmOdalVisible(true);
+        }}
       ></Button>
       <ScrollView>
         <Pressable
@@ -71,6 +84,20 @@ export default function App() {
             anim id est laborum.
           </Text>
         </Pressable>
+
+        <Modal visible={isModalVisible}>
+          <View>
+            <Text>Hey modal</Text>
+            <Button
+              onPress={() => {
+                console.log("Open Modal closed");
+                setIsmOdalVisible(false);
+              }}
+              title="close"
+              color="midnightblue"
+            ></Button>
+          </View>
+        </Modal>
       </ScrollView>
       {/* <View
        style={{
