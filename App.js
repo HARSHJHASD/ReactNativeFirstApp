@@ -1,13 +1,17 @@
 import { useState } from "react";
 import {
+  ActivityIndicator,
+  Alert,
   Button,
   Image,
+  Modal,
+  Pressable,
   ScrollView,
+  StatusBar,
   Text,
   View,
-  Pressable,
-  Modal,
 } from "react-native";
+import Greet from "./components/Greet";
 const logoImage = require("./assets/adaptive-icon.png");
 
 export default function App() {
@@ -29,6 +33,16 @@ export default function App() {
     console.log("Pressable onLongPress");
   };
 
+  const statusBarChange = () => {
+    setShowDStatus(true);
+  };
+
+  const [showStatus, setShowStatus] = useState(true);
+
+  const toggleStatusBar = () => {
+    setShowStatus(!showStatus);
+  };
+
   return (
     <View
       style={{
@@ -37,15 +51,51 @@ export default function App() {
         padding: 60,
       }}
     >
+      <StatusBar
+        hidden={!showStatus}
+        barStyle="light-content"
+        backgroundColor="lightgreen"
+      ></StatusBar>
       <Image source={logoImage} style={{ width: 300, height: 300 }}></Image>
       <Button
         color="midnightblue"
-        title="Press"
+        title="Press For Modal"
         onPress={() => {
           console.log("Open Modal pressed");
           setIsmOdalVisible(true);
         }}
       ></Button>
+      <Button
+        title={showStatus ? "Hide Status Bar" : "Show Status Bar"}
+        onPress={toggleStatusBar}
+      />
+      <Button
+        title="Invoke Alert"
+        onPress={() => {
+          Alert.alert("This is triggered heading", "this is message", [
+            {
+              text: "Cancel",
+              onPress: () => console.log("Cancelled"),
+            },
+            {
+              text: "Cancel",
+              onPress: () => console.log("Cancelled"),
+            },
+            {
+              text: "Cancel",
+              onPress: () => console.log("Cancelled"),
+            },
+            {
+              text: "Cancel",
+              onPress: () => console.log("Cancelled"),
+            },
+          ]);
+        }}
+      />
+
+      <Greet name="Harsh" />
+
+      <ActivityIndicator size="large" color="midnightblue" />
       <ScrollView>
         <Pressable
           onPress={handleTextPress}
@@ -84,21 +134,24 @@ export default function App() {
             anim id est laborum.
           </Text>
         </Pressable>
-
-        <Modal presentationStyle="pageSheet" animationType="slide" visible={isModalVisible}>
-          <View>
-            <Text>Hey modal</Text>
-            <Button
-              onPress={() => {
-                console.log("Open Modal closed");
-                setIsmOdalVisible(false);
-              }}
-              title="close"
-              color="midnightblue"
-            ></Button>
-          </View>
-        </Modal>
       </ScrollView>
+      <Modal
+        presentationStyle="pageSheet"
+        animationType="slide"
+        visible={isModalVisible}
+      >
+        <View>
+          <Text>Hey modal</Text>
+          <Button
+            onPress={() => {
+              console.log("Open Modal closed");
+              setIsmOdalVisible(false);
+            }}
+            title="close"
+            color="midnightblue"
+          ></Button>
+        </View>
+      </Modal>
       {/* <View
        style={{
          backgroundColor: "plum",
