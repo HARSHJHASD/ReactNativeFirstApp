@@ -95,7 +95,7 @@ export default function App() {
 
       <Greet name="Harsh" />
 
-      <ActivityIndicator size="large" color="midnightblue" />
+      {/* <ActivityIndicator size="large" color="midnightblue" /> */}
       <ScrollView>
         <Pressable
           onPress={handleTextPress}
